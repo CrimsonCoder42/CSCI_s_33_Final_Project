@@ -1,13 +1,20 @@
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Count
+from django.core.paginator import Paginator
 
+from .models import User
 
 
 def index(request):
-    return render(request, "network/index.html")
+    return render(request, "homeshare/index.html")
 
 
 def login_view(request):
@@ -23,11 +30,10 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "network/login.html", {
-                "message": "Invalid username and/or password."
-            })
+            return JsonResponse({"message": "Invalid username and/or password."}, status=400)
+
     else:
-        return render(request, "network/login.html")
+        return render(request, "homeshare/login_register.html")
 
 
 def logout_view(request):
@@ -44,19 +50,17 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "network/register.html", {
-                "message": "Passwords must match."
-            })
+            return JsonResponse({"Register": "Register", "message": "Passwords must match."}, status=400)
+
 
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            return render(request, "network/register.html", {
-                "message": "Username already taken."
-            })
+            return JsonResponse({"Register": "Register", "message": "Username already taken."}, status=400)
+
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "network/register.html")
+        return JsonResponse({"Register": "Register"}, status=400)
