@@ -13,71 +13,79 @@
     <div class="container">
 
         <div class="form-container">
-            <div class="signin-signup">
+            <div class="signin-signup" id="login-form">
                 <div class="login-logo">
                     <span class="material-symbols-rounded">
                         home_app_logo
                     </span>
                 </div>
 
-                <form action="#" class="sign-in-form">
+                    {% if login_message %}
+                    <div>{{ login_message }}</div>
+                    {% endif %}
+
+                <form action="{% url 'login' %}" method="post" class="sign-in-form" >
+                    {% csrf_token %}
                     <h2 class="title"> Login</h2>
                     <div class="input-field">
                         <span class="material-symbols-rounded">
                             person
                         </span>
-                        <input type="text" placeholder="Username"/>
+                        <input type="text" name="username" placeholder="Username"/>
                     </div>
                     <div class="input-field">
                         <span class="material-symbols-rounded">
                             lock
                         </span>
-                        <input type="password" placeholder="Password"/>
+                        <input type="password" name="password" placeholder="Password"/>
                     </div>
                     <input type="submit" class="btn solid" value="Login" />
 
                     <p class="social-text">Don't have an account? <a href="#" id="register-button">Register here.</a></p>
                 </form>
-
-
-
             </div>
 
-            <div class="signup-signup">
+            <div class="signup-signup" id="register-form">
                 <div class="login-logo">
                     <span class="material-symbols-rounded">
                         home_app_logo
                     </span>
                 </div>
-                <form action="#" class="sign-up-form">
+                <form action="{% url 'register' %}" method="post" class="sign-up-form">
+                    {% csrf_token %}
                     <h2 class="title">Register</h2>
+
+                    {% if register_message %}
+                        <div>{{ register_message }}</div>
+                    {% endif %}
+
                     <div class="input-field">
                         <span class="material-symbols-rounded">
                             mail
                         </span>
-                        <input type="email" placeholder="Email">
+                        <input type="email" name="email" placeholder="Email">
                     </div>
                     <div class="input-field">
                         <span class="material-symbols-rounded">
                             person
                         </span>
-                        <input type="text" placeholder="Username">
+                        <input type="text" name="username" placeholder="Username">
                     </div>
                     <div class="input-field">
                         <span class="material-symbols-rounded">
                             lock
                         </span>
-                        <input type="password" placeholder="Password">
+                        <input type="password" name="password" placeholder="Password">
                     </div>
                     <div class="input-field">
                         <span class="material-symbols-rounded">
                             check
                         </span>
-                        <input type="password" placeholder="Verify Password">
+                        <input type="password" name="confirmation" placeholder="Verify Password">
                     </div>
-                    <input type="submit" class="btn solid" value="Login">
+                    <input type="submit" class="btn solid" value="Register">
 
-                    <p class="social-text">Have an account? <a href="#" id="login-button">Login here.</a></p>
+                    <p class="social-text">Have an account? <a href="#" id="login-button">Log in</a></p>
                 </form>
             </div>
         </div>

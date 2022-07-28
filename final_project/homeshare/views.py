@@ -30,8 +30,9 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return JsonResponse({"message": "Invalid username and/or password."}, status=400)
-
+            return render(request, "homeshare/login_register.html", {
+                "login_message": "Invalid username and/or password."
+            })
     else:
         return render(request, "homeshare/login_register.html")
 
@@ -50,17 +51,20 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return JsonResponse({"Register": "Register", "message": "Passwords must match."}, status=400)
-
+            return render(request, "homeshare/login_register.html", {
+                "register_message": "Passwords must match."
+            })
 
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            return JsonResponse({"Register": "Register", "message": "Username already taken."}, status=400)
+            return render(request, "homeshare/login_register.html", {
+                "register_message": "Username already taken."
+            })
 
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return JsonResponse({"Register": "Register"}, status=400)
+        return render(request, "homeshare/login_register.html")
