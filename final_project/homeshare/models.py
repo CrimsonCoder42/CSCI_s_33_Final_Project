@@ -4,18 +4,16 @@ from django.db import models
 
 # following a property should pretty much be what watch list was for eCom project
 class User(AbstractUser):
-    property_follow = models.ManyToManyField("Property_listing", related_name="follow_property")
+    pass
+
+#property_follow = models.ManyToManyField("Property_listing", related_name="follow_property")
 
 # Every person who signs up gets a profile but should be able to add and edit profile.
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_id = models.IntegerField()
-    profilePic = models.ImageField(upload_to='profile_images', default='blank-profile-picture.png')
+    profile_id = models.IntegerField()
+    #profilePic = models.ImageField(upload_to='profile_images', default='empty_profile_pic.webp')
     bio = models.TextField(blank=True)
-
-
-    def __str__(self):
-        return self.user.username
 
 # Each listing has an address and ammenities associated with it. ALong with dates on when the property is avail.
 class Property_listing(models.Model):
