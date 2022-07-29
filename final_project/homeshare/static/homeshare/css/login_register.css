@@ -12,22 +12,6 @@ input {
     font-family: 'DM Sans', sans-serif;
 }
 
-.container{
-    position: absolute;
-    width:100%;
-    background-color: #fff;
-    min-height: 100vh;
-    overflow:hidden;
-}
-
-.forms-container{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top:0;
-    left:0;
-}
-
 form {
     display: flex;
     flex-direction: column;
@@ -37,6 +21,42 @@ form {
     grid-row: 1 / 2;
     padding: 0 5rem;
 }
+
+.container{
+    position: absolute;
+    width:100%;
+    background-color: #fff;
+    min-height: 100vh;
+    overflow:hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    height: 2000px;
+    width: 1000px;
+    right: 60%;
+    background-image: linear-gradient(-45deg,#E61E4D 0%, #FC2614 100%);
+    transform: translateY(-30%);
+    z-index: 6;
+    transition: .5s ease-in-out;
+}
+
+.container.sign-up-mode::before {
+    transform: translate(100%, -50%);
+    right: 40%;
+}
+
+
+.forms-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+}
+
+
 
 .title {
     font-size: 2.2rem;
@@ -134,22 +154,8 @@ form {
 
 }
 
-.container::before {
-    content: '';
-    position: absolute;
-    height: 2000px;
-    width: 1000px;
-    right: 60%;
-    background-image: linear-gradient(-45deg,#E61E4D 0%, #FC2614 100%);
-    transform: translateY(-30%);
-    z-index: 6;
-    transition: .5s ease-in-out;
-}
 
-.container.sign-up-mode::before {
-    transform: translate(100%, -50%);
-    right: 40%;
-}
+
 
 
 

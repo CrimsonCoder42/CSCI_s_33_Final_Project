@@ -17,6 +17,10 @@ def index(request):
     return render(request, "homeshare/index.html")
 
 
+def feed(request):
+    return render(request, "homeshare/feed.html")
+
+
 def login_view(request):
     if request.method == "POST":
 
