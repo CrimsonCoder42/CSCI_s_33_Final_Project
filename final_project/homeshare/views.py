@@ -13,10 +13,6 @@ from django.core.paginator import Paginator
 from .models import User
 
 
-def index(request):
-    return render(request, "homeshare/index.html")
-
-
 def feed(request):
     return render(request, "homeshare/feed.html")
 
@@ -32,7 +28,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("feed"))
         else:
             return render(request, "homeshare/login_register.html", {
                 "login_message": "Invalid username and/or password."
@@ -43,7 +39,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("feed"))
 
 
 def register(request):
@@ -69,6 +65,6 @@ def register(request):
             })
 
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("feed"))
     else:
         return render(request, "homeshare/login_register.html")
