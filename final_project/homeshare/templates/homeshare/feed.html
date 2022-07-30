@@ -1,5 +1,98 @@
 {% extends "homeshare/feed_layout.html" %}
-
+{% load static %}
 {% block body %}
-    TODO
+<main>
+    <div class="body-container">
+
+<!--        Left sidebar -->
+
+        <div class="left">
+            <a class="profile">
+                <div class="profile-picture">
+                    <img src="{% static 'homeshare/profile_images/elizabeth_olsen.jpg' %}" alt="">
+                </div>
+                {% if user.is_authenticated %}
+
+                {% endif %}
+            </a>
+
+<!--            SIDEBAR-->
+            <a href="#"><label id="followBtn" class="btn btn-primary" for="follow">Follow</label></a>
+            <div class="sidebar">
+                <a id="home_feed_btn" class="menu-item">
+                    <span class="material-symbols-rounded">home</span><h3>Home Feed</h3>
+                </a>
+
+                <a id="your_profile_btn" class="menu-item">
+                    <span class="material-symbols-rounded">list</span><h3>Your Profile</h3>
+                </a>
+
+                <a id="following_btn" class="menu-item">
+                    <span class="material-symbols-rounded">celebration</span><h3>Following</h3>
+                </a>
+
+                <a id="wish_list_btn" class="menu-item">
+                    <span class="material-symbols-rounded">bookmarks</span><h3>Wish List</h3>
+                </a>
+
+                <a id="chat_btn" class="menu-item">
+                    <span class="material-symbols-rounded">Sms</span><h3>Chat</h3>
+                </a>
+
+
+                <a class="menu-item">
+                    <span class="material-symbols-rounded">settings</span><h3>Settings</h3>
+                </a>
+
+                </a>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="right">
+            <div class="search-bar">
+                <span class="material-symbols-rounded">
+                    search
+                </span>
+                <input type="search" placeholder="Search">
+            </div>
+
+            <div class="display" id="home_feed">
+                <h1>Home Feed</h1>
+
+            </div>
+            <div class="display" id="your_profile">
+                <h1>Your Profile</h1>
+
+            </div>
+
+            <div class="display" id="following">
+                <h1>Following</h1>
+
+            </div>
+
+            <div class="display" id="wish_list">
+                <h1>Wish List</h1>
+
+            </div>
+
+             <div class="display" id="chat">
+                <h1>Chat</h1>
+
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+
+</main>
+
+
 {% endblock %}
