@@ -6,7 +6,7 @@
 
      --border-radius: 60px;
     --card-border-radius: 1rem;
-    --btn-padding: 1rem;
+    --bttn-padding: 1rem;
     --search-padding: 0 0.4rem;
     --card-padding: 1rem;
 
@@ -60,9 +60,9 @@ img {
     margin-right: 20%;
 }
 
-.btn{
+.bttn{
     display: inline-block;
-    padding: var(--btn-padding);
+    padding: var(--bttn-padding);
     font-weight: 500;
     border-radius: var(--border-radius);
     cursor: pointer;
@@ -71,17 +71,17 @@ img {
     font-size:0.7rem;
 }
 
-.btn:hover {
+.bttn:hover {
     opacity: 0.8;
     box-shadow: 2px 2px 2px 2px var(--hover_color);
 }
 
-.btn-primary {
+.bttn-primary {
     background-image: var(--main_gradient);
     color: var(--white_color);
 }
 
-#followBtn {
+#followbttn {
     margin-top: 1rem;
     margin-left: 12%;
 }
@@ -105,6 +105,7 @@ img {
 
 .display{
     margin-top: 1rem;
+    margin-left: 5%;
     height: 80%;
 }
 
@@ -191,7 +192,7 @@ main .body-container .left {
 
 main .body-container .right {
     height: max-content;
-    max-width: 80%;
+    max-width: 90%;
     min-width: 50%;
     position: sticky;
     top: var(--sticky-top-left)
