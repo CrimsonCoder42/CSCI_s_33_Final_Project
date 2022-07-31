@@ -155,7 +155,24 @@ form {
 
 }
 
+#upload_image {
+    display:grid;
+    color: #FC2614;
+    font-size: 1.5rem;
+    grid-template-columns: 50% auto;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
 
+#complete_profile_message {
+    position: absolute;
+    left: 10%;
+    font-size: 1rem;
+    z-index: 7;
+    color: white;
+    width: 25vw;
+    top: 40%;
+}
 
 
 
