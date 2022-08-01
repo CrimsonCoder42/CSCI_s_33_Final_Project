@@ -1,4 +1,6 @@
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -8,4 +10,4 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     path("complete_profile", views.complete_profile, name="complete_profile")
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

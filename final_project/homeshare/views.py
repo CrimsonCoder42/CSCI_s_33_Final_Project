@@ -82,40 +82,35 @@ def register(request):
         return render(request, "homeshare/login_register.html")
 
 def complete_profile(request):
-    # if request.method == "POST":
-    #     username = request.POST["username"]
-    #     email = request.POST["email"]
-    #
-    #     # Ensure password matches confirmation
-    #     password = request.POST["password"]
-    #     confirmation = request.POST["confirmation"]
-    #     if password != confirmation:
-    #         return render(request, "homeshare/login_register.html", {
-    #             "register_message": "Passwords must match."
-    #         })
-    #
-    #     # Attempt to create new user
-    #     try:
-    #         user = User.objects.create_user(username, email, password)
-    #         user.save()
-    #
-    #         #A new profile for users is created with sign up.
-    #         #however they need to be redirected to finalize profile page.
-    #
-    #         get_user = User.objects.get(username=username)
-    #         create_profile = Profile(
-    #             user=get_user,
-    #             username=username,
-    #             profile_id=get_user.id)
-    #
-    #         create_profile.save()
-    #
-    #     except IntegrityError:
-    #         return render(request, "homeshare/login_register.html", {
-    #             "register_message": "Username already taken."
-    #         })
-    #
-    #     login(request, user)
-    #     return HttpResponseRedirect(reverse("feed"))
-    # else:
+
+    get_profile = Profile.objects.get(user=request.user)
+
+    if request.method == "POST":
+
+        try:
+            image = request.Files.get('image')
+            username = request.POST["username"]
+            bio = request.POST["bio"]
+            print(username)
+            print(bio)
+
+
+            get_profile.profilePic = image
+            get_profile.username = username
+            get_profile.bio = bio
+        except:
+            image = get_profile.profilePic
+            username = request.POST["username"]
+            bio = request.POST["bio"]
+
+            get_profile.profilePic = image
+            get_profile.username = username
+            get_profile.bio = bio
+
+        get_profile.save()
+
+        return render(request, "homeshare/feed.html", {
+
+        })
+    else:
         return render(request, "homeshare/complete_profile.html")

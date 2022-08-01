@@ -49,8 +49,8 @@
                 </a>
 
 
-                <a class="menu-item">
-                    <span class="material-symbols-rounded">settings</span><h3>Settings</h3>
+                <a id="update_profile" class="menu-item">
+                    <span class="material-symbols-rounded">settings</span><h3>Update Profile</h3>
                 </a>
 
                 </a>
@@ -243,9 +243,55 @@
 
             </div>
 
+
+            <div id="update_profile_view" class="display">
+        <div class="form-container">
+            <div class="signin-signup" id="login-form">
+
+                    {% if login_message %}
+                    <div>{{ login_message }}</div>
+                    {% endif %}
+
+                <form action="{% url 'complete_profile' %}" method="post" enctype="multipart/form-data" class="sign-in-form" >
+                    {% csrf_token %}
+                    <h2 class="title"> Update Profile</h2>
+
+                    <div class="input-field">
+                        <span class="material-symbols-rounded">
+                            person
+                        </span>
+                        <input type="text" name="username" readonly="readonly" placeholder="{{user.username}}"/>
+                    </div>
+
+                    <div id=bioDiv class="input-field">
+                        <span class="material-symbols-rounded">
+                            psychology_alt
+                        </span>
+                        <input type="text" size="50"  maxlength="50" name="bio" placeholder="A little about you"/>
+                    </div>
+
+                    <div id="upload_image">
+                        <label for="img">Select image:</label>
+                        <img width='25' height='25' src="{{profile_info.profilePic.url}}" alt="">
+                            <input type="file" id="img" name="img" accept="image/*">
+                    </div>
+
+                    <input type="submit" class="bttn bttn-primary" value="Update" />
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
         </div>
 
+
     </div>
+
+
+
+
     {% else %}
 
     <h2>Please <a href="{% url 'login' %}">sign in or create account</a></h2>

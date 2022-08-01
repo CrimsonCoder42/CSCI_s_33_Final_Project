@@ -28,7 +28,8 @@
                     <div>{{ login_message }}</div>
                     {% endif %}
 
-                <form action="#" method="post" class="sign-in-form" >
+
+                <form action="{% url 'complete_profile' %}" method="post" enctype="multipart/form-data" class="sign-in-form" >
                     {% csrf_token %}
                     <h2 class="title"> Complete Profile</h2>
 
@@ -39,7 +40,7 @@
                         <input type="text" name="username" readonly="readonly" placeholder="{{user.username}}"/>
                     </div>
 
-                    <div class="input-field">
+                    <div id=bioDiv class="input-field">
                         <span class="material-symbols-rounded">
                             psychology_alt
                         </span>

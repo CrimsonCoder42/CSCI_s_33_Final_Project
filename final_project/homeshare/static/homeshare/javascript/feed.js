@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const following = document.querySelector('#following_bttn').addEventListener( 'click', () => youFollowing() );
   const wishList = document.querySelector('#wish_list_bttn').addEventListener( 'click', () => yourWishList() );
   const chat = document.querySelector('#chat_bttn').addEventListener( 'click', () => chatMessaging() );
+  const profile_update = document.querySelector('#update_profile').addEventListener( 'click', () => update_profile() );
+
 
   document.querySelector('#home_feed').style.display = 'none';
   document.querySelector('#your_profile').style.display = 'none';
@@ -12,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('#wish_list').style.display = 'none';
   document.querySelector('#chat').style.display = 'none';
   document.querySelector('#property_listing').style.display = 'none';
+  document.querySelector('#update_profile_view').style.display = 'none';
 
   home_feed()
 
@@ -26,6 +29,7 @@ function home_feed(){
   document.querySelector('#wish_list').style.display = 'none';
   document.querySelector('#chat').style.display = 'none';
   document.querySelector('#property_listing').style.display = 'none';
+  document.querySelector('#update_profile_view').style.display = 'none';
 
 }
 
@@ -36,6 +40,7 @@ function your_profile(){
   document.querySelector('#wish_list').style.display = 'none';
   document.querySelector('#chat').style.display = 'none';
   document.querySelector('#property_listing').style.display = 'none';
+  document.querySelector('#update_profile_view').style.display = 'none';
 
 }
 
@@ -46,6 +51,7 @@ function youFollowing(){
   document.querySelector('#wish_list').style.display = 'none';
   document.querySelector('#chat').style.display = 'none';
   document.querySelector('#property_listing').style.display = 'none';
+  document.querySelector('#update_profile_view').style.display = 'none';
 
 }
 
@@ -56,6 +62,7 @@ function yourWishList(){
   document.querySelector('#wish_list').style.display = 'block';
   document.querySelector('#chat').style.display = 'none';
   document.querySelector('#property_listing').style.display = 'none';
+  document.querySelector('#update_profile_view').style.display = 'none';
 
 }
 
@@ -66,6 +73,7 @@ function chatMessaging(){
   document.querySelector('#wish_list').style.display = 'none';
   document.querySelector('#chat').style.display = 'block';
   document.querySelector('#property_listing').style.display = 'none';
+  document.querySelector('#update_profile_view').style.display = 'none';
 
 }
 
@@ -76,5 +84,17 @@ function propertyListing(){
   document.querySelector('#wish_list').style.display = 'none';
   document.querySelector('#chat').style.display = 'none';
   document.querySelector('#property_listing').style.display = 'block';
+  document.querySelector('#update_profile_view').style.display = 'none';
+
+}
+
+function update_profile(){
+  document.querySelector('#home_feed').style.display = 'none';
+  document.querySelector('#your_profile').style.display = 'none';
+  document.querySelector('#following').style.display = 'none';
+  document.querySelector('#wish_list').style.display = 'none';
+  document.querySelector('#chat').style.display = 'none';
+  document.querySelector('#property_listing').style.display = 'none';
+  document.querySelector('#update_profile_view').style.display = 'block';
 
 }
