@@ -13,8 +13,11 @@ from django.core.paginator import Paginator
 from .models import User, Profile, Property_listing, LikePost, FollowersCount
 
 
+@login_required(login_url="login")
 def feed(request):
-    return render(request, "homeshare/feed.html")
+    current_profile = Profile.objects.get(user=request.user)
+
+    return render(request, "homeshare/feed.html", {'current_profile': current_profile})
 
 
 def login_view(request):
@@ -36,7 +39,7 @@ def login_view(request):
     else:
         return render(request, "homeshare/login_register.html")
 
-
+@login_required(login_url="login")
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("feed"))
@@ -81,36 +84,114 @@ def register(request):
     else:
         return render(request, "homeshare/login_register.html")
 
+
+@login_required(login_url="login")
 def complete_profile(request):
 
-    get_profile = Profile.objects.get(user=request.user)
+    current_profile = Profile.objects.get(user=request.user)
 
-    if request.method == "POST":
+    if request.method == 'POST':
 
-        try:
-            image = request.Files.get('image')
-            username = request.POST["username"]
-            bio = request.POST["bio"]
-            print(username)
-            print(bio)
+        if request.FILES.get('img') != None:
+            image = request.FILES.get('img')
+            bio = request.POST['bio']
+
+            current_profile.profilePic = image
+            current_profile.bio = bio
+            current_profile.save()
+
+        if request.FILES.get('img') == None:
+            image = current_profile.profilePic
+            bio = request.POST['bio']
+
+            current_profile.profilePic = image
+            current_profile.bio = bio
+            current_profile.save()
+
+        return redirect('feed')
+    return render(request, 'feed.html', {'current_profile': current_profile})
 
 
-            get_profile.profilePic = image
-            get_profile.username = username
-            get_profile.bio = bio
-        except:
-            image = get_profile.profilePic
-            username = request.POST["username"]
-            bio = request.POST["bio"]
+def new_listing(request):
 
-            get_profile.profilePic = image
-            get_profile.username = username
-            get_profile.bio = bio
+    if request.method == 'POST':
 
-        get_profile.save()
+        print(type(True_or_False(request.POST.get('pool'))))
+        title = request.POST['title']
+        image_url = request.FILES.get('img')
+        rooms = request.POST['rooms']
+        bathrooms = request.POST['bathrooms']
+        address_1 = request.POST['address_1']
+        address_2 = request.POST['address_2']
+        city = request.POST['city']
+        state = request.POST['state']
+        active = True_or_False(request.POST.get('active'))
+        description = request.POST['description']
+        cost = request.POST['cost']
+        pool = True_or_False(request.POST.get('pool'))
+        wifi = True_or_False(request.POST.get('wifi'))
+        kitchen = True_or_False(request.POST.get('kitchen'))
+        free_parking = True_or_False(request.POST.get('free_parking'))
+        jacuzzi = True_or_False(request.POST.get('jacuzzi'))
+        washer = True_or_False(request.POST.get('washer'))
+        air_conditioning = True_or_False(request.POST.get('air_conditioning'))
+        self_check_in = True_or_False(request.POST.get('self_check_in'))
+        workspace = True_or_False(request.POST.get('workspace'))
+        pets_allowed = True_or_False(request.POST.get('pets_allowed'))
+        smoke_alarm = True_or_False(request.POST.get('smoke_alarm'))
+        carbon_monoxide_alarm = True_or_False(request.POST.get('carbon_monoxide_alarm'))
+        fire_extinguisher = True_or_False(request.POST.get('fire_extinguisher'))
+        first_aid_kit = True_or_False(request.POST.get('first_aid_kit'))
+        crib_and_high_chair = True_or_False(request.POST.get('crib_and_high_chair'))
+        bathtub = True_or_False(request.POST.get('bathtub'))
+        wine_glasses = True_or_False(request.POST.get('wine_glasses'))
+        coffee_maker = True_or_False(request.POST.get('coffee_maker'))
 
-        return render(request, "homeshare/feed.html", {
+        create_listing = Property_listing(
+            owner=request.user,
+            title=title,
+            image_url=image_url,
+            rooms=rooms,
+            bathrooms=bathrooms,
+            address_1=address_1,
+            address_2=address_2,
+            city=city,
+            state=state,
+            active=active,
+            description=description,
+            cost=cost,
+            pool=pool,
+            wifi=wifi,
+            kitchen=kitchen,
+            free_parking=free_parking,
+            jacuzzi=jacuzzi,
+            washer=washer,
+            air_conditioning=air_conditioning,
+            self_check_in=self_check_in,
+            workspace=workspace,
+            pets_allowed=pets_allowed,
+            smoke_alarm=smoke_alarm,
+            carbon_monoxide_alarm=carbon_monoxide_alarm,
+            fire_extinguisher=fire_extinguisher,
+            first_aid_kit=first_aid_kit,
+            crib_and_high_chair=crib_and_high_chair,
+            bathtub=bathtub,
+            wine_glasses=wine_glasses,
+            coffee_maker=coffee_maker
 
-        })
+        )
+
+        create_listing.save()
+
+        return redirect('feed')
+
     else:
-        return render(request, "homeshare/complete_profile.html")
+        return render(request, "homeshare/new_listing.html")
+
+
+# helper function to convert on off in check box to True False for Boolean
+def True_or_False(bool):
+    if bool == 'on':
+        return True
+    else:
+        return False
